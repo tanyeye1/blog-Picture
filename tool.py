@@ -5,7 +5,7 @@ import sys
 import json
 from datetime import datetime
 from ImageProcess import Graphics
-
+sys.path.append('/path/to/pillow')
 # 定义压缩比，数值越大，压缩越小
 SIZE_normal = 1.0
 SIZE_small = 1.5
@@ -131,7 +131,7 @@ def handle_photo():
             list_info[-1]['arr']['type'].append('image')
     list_info.reverse()  # 翻转
     final_dict = {"list": list_info}
-    with open("../source/photos/data.json","w") as fp:
+    with open("./blog_photos_copy/data.json","w") as fp:
         json.dump(final_dict, fp)
 
 def cut_photo():
