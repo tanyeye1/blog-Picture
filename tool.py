@@ -30,7 +30,11 @@ def list_img_file(directory):
     # print old_list
     new_list = []
     for filename in old_list:
-        name, fileformat = filename.split(".")
+        last_dot_index = filename.rfind(".")
+        if last_dot_index != -1:
+            name = filename[:last_dot_index]
+            fileformat = filename[last_dot_index + 1:]
+        # name, fileformat = filename.split(".")
         if fileformat.lower() == "jpg" or fileformat.lower() == "png" or fileformat.lower() == "gif" or fileformat.lower() == "jpeg" :
             new_list.append(filename)
     # print new_list
