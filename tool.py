@@ -112,7 +112,7 @@ def handle_photo():
         if len(parts) >= 2:
             info = parts[0]  # 使用第一个部分
         else: info = info.split(".")
-        info, _ = info
+        info = info[0]
         date = datetime.strptime(date_str, "%Y-%m-%d")
         year_month = date_str[0:7]            
         if i == 0:  # 处理第一个文件
