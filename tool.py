@@ -108,11 +108,11 @@ def handle_photo():
     for i in range(len(file_list)):
         filename = file_list[i]
         date_str, info = filename.split("_")
-        last_dot_index = info.rfind(".")
-        if last_dot_index != -1:
-            name = filename[:last_dot_index]
-            fileformat = filename[last_dot_index + 1:]
-        info, _ = fileformat
+        # last_dot_index = info.rfind(".")
+        # if last_dot_index != -1:
+        #     name = filename[:last_dot_index]
+        #     fileformat = filename[last_dot_index + 1:]
+        info, _ = info.split(".")
         date = datetime.strptime(date_str, "%Y-%m-%d")
         year_month = date_str[0:7]            
         if i == 0:  # 处理第一个文件
