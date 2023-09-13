@@ -116,16 +116,27 @@
         var data = res.list[j].arr;
         var liTmpl = "";
         for (var i = 0, len = data.link.length; i < len; i++) {
-          // https://raw.githubusercontent.com/tanyeye1/blog-Picture/main/photos/2020-05-20_1.png
-          var minSrc = 'https://raw.githubusercontent.com/tanyeye1/blog-Picture/master/min_photos/' + data.link[i];
-          var src = 'https://raw.githubusercontent.com/tanyeye1/blog-Picture/master/photos' + data.link[i];
+          // https://cdn.jsdelivr.net/gh/tanyeye1/blog-Picture@master/photos/2021-08-08_%E7%9C%B7%E6%80%9D%E9%87%8F10.jpg
+          // https://raw.githubusercontent.com/tanyeye1/blog-Picture/master/photos/2021-08-08_%E7%9C%B7%E6%80%9D%E9%87%8F10.jpg
+
+          var minSrc = 'https://cdn.jsdelivr.net/gh/tanyeye1/blog-Picture@master/min_photos/' + data.link[i];
+          var src = 'https://cdn.jsdelivr.net/gh/tanyeye1/blog-Picture@master/photos/' + data.link[i];
           var type = data.type[i];
           var target = src + (type === 'video' ? '.mp4' : '.jpg');
           src += '';
-
-          liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
+          var extractedString = data.link[i].replace(/\.\w+$/, ""); // 删除文件扩展名
+          extractedString = extractedString.replace(/^\d{4}-\d{2}-\d{2}_/, ""); // 删除日期部分和下划线
+          // liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
+          //       <a href="' + src + '" itemprop="contentUrl" data-size="1080x1080" data-type="' + type + '" data-target="' + src + '">\
+          //         <img class="reward-img" data-type="' + type + '" src="' + minSrc + '"  itemprop="thumbnail" onload="lzld(this)">\
+          //         <div>' + extractedString + '</div>\
+          //       </a>\
+          //       <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
+          //   </figure>';
+            liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
                 <a href="' + src + '" itemprop="contentUrl" data-size="1080x1080" data-type="' + type + '" data-target="' + src + '">\
-                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/assets/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
+                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/assets/empty.png" itemprop="thumbnail" onload="lzld(this)">\
+                  <div>' + extractedString + '</div>\
                 </a>\
                 <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
             </figure>';
@@ -471,6 +482,7 @@
 
         return params;
       };
+      // console.log('photoswipe', photoswipe)
 
       var openPhotoSwipe = function openPhotoSwipe(index, galleryElement, disableAnimation, fromURL) {
         var pswpElement = document.querySelectorAll('.pswp')[0],
@@ -530,6 +542,7 @@
         }
 
         // Pass data to PhotoSwipe and initialize it
+        //TODO
         gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
         gallery.init();
 
